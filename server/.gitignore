@@ -34,3 +34,7 @@ coverage
 
 # Ignore local environment file
 .env
+.env.local
+
+# Ignore gems 
+vendor/gems

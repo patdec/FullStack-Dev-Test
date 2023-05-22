@@ -34,8 +34,12 @@ group :development, :test do
 end
 
 group :development do
+  gem 'capybara', '~> 3.39.1'
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'rspec-rails', '~> 6.0.2'
+  gem 'rubocop', require: false
+  gem 'solargraph'
   gem 'spring'
 end
 
