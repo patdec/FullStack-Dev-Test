@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Customer < ApplicationRecord
-  EMAIL_REGEXP = /\A[a-z0-1]+@[a-z0-1]+\.[a-z]{2,}\z/i.freeze
+  EMAIL_REGEXP = /\A[a-z0-9-]+@[a-z0-9-]+\.[a-z]{2,}\z/i.freeze
 
   validates :name, presence: true, length: { maximum: 255 }, allow_blank: false
   validates :email, presence: true, uniqueness: { case_sensitive: false },

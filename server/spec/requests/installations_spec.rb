@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Installations', type: :request do
@@ -99,7 +101,7 @@ RSpec.describe 'Installations', type: :request do
     end
 
     context 'when one panels_id has wrong format' do
-      before { params[:installation][:panels_ids] = (1..7).map { |n| "12300#{n}" }.push('x' * 6 ) }
+      before { params[:installation][:panels_ids] = (1..7).map { |n| "12300#{n}" }.push('x' * 6) }
 
       it 'returns a 500' do
         post installations_path, params: params
