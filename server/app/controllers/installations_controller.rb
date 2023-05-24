@@ -13,7 +13,8 @@ class InstallationsController < ApplicationController
   private
 
   def installation_params
-    params.require(:installation).permit(:installer_id, :panels_number, :panels_type, panels_ids: [],
+    params.require(:installation).permit(:installer_id, :panels_number, :panels_type, :date,
+                                         panels_ids: [],
                                          customer_attributes: %i[name email phone],
                                          address_attributes: %i[street city zipcode country_id])
   end

@@ -21,6 +21,7 @@ interface InstallationPayload {
     panels_type: 'hybrid' | 'photovoltaic',
     panels_number: number,
     panels_ids: string[],
+    date: string,
     customer_attributes: {
       name: string,
       email: string,
@@ -58,6 +59,7 @@ export class NewInstallationComponent implements OnInit {
       addressZipcode: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       addressCity: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       addressCountry: new FormControl({}, Validators.required),
+      date: new FormControl('', Validators.required),
       panelsType: new FormControl('', Validators.required),
       panelsNumber: new FormControl('', [Validators.required, Validators.max(50), Validators.min(1)]),
       panelsIds: new FormControl('', [Validators.required, panelsIdsFormatValidator()])
@@ -83,9 +85,11 @@ export class NewInstallationComponent implements OnInit {
   get addressCity() { return this.form.get('addressCity'); }
   get addressCountry() { return this.form.get('addressCountry'); }
   get panelsType() { return this.form.get('panelsType'); }
+  get date() { return this.form.get('date'); }
   get panelsNumber() { return this.form.get('panelsNumber'); }
   get panelsIds() { return this.form.get('panelsIds'); }
   get installer() { return this.form.get('installer'); }
+
   onSubmit() {
     if (!this.form.valid) return;
 
@@ -107,6 +111,7 @@ export class NewInstallationComponent implements OnInit {
         panels_type: this.form.get('panelsType')?.value,
         panels_number: this.form.get('panelsNumber')?.value,
         panels_ids: this.buildIdsArray(),
+        date: this.form.get('date')?.value,
         customer_attributes: {
           name: this.form.get('customerName')?.value,
           email: this.form.get('customerEmail')?.value,

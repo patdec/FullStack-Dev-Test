@@ -172,6 +172,27 @@
       </div>
 
       <div class="form-group">
+        <label for="panels-type">Date d'installation</label>
+        <div class="input-group">
+          <input ngbDatepicker #d="ngbDatepicker"
+                 placeholder="yyyy-mm-dd"
+                 class="form-control"
+                 [class.is-invalid]="date?.invalid && date?.dirty"
+                 id="date"
+                 formControlName="date"
+                 required />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+        <div *ngIf="date?.invalid && date?.dirty" class="invalid-feedback">
+          <div *ngIf="date?.errors?.['required']">
+            La date est obligatoire
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="panels-type">Type de panneau</label>
         <select
           class="form-control"

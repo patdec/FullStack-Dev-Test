@@ -194,6 +194,21 @@ RSpec.feature "Installations", type: :feature do
         expect(page).to have_text('La valeur "Nombre de panneaux" ne correspond pas au nombre de références saisies')
       end
     end
+
+    context 'when date is empty' do
+      it 'shows input as error' do
+        fill_in('date', with: '2023-01-23')
+        fill_in('date', with: '')
+        expect(page).to have_css('#date.is-invalid')
+      end
+    end
+
+    context 'when date format is invalid' do
+      it 'shows input as error' do
+        fill_in('date', with: '2023/01/34')
+        expect(page).to have_css('#date.is-invalid')
+      end
+    end
   end
 end
 
@@ -209,4 +224,5 @@ def filling_form_installation
   fill_in('panels-number', with: '2')
   select('hybrid', from: 'panels-type')
   fill_in('panels-ids', with: '123456, 111222')
+  fill_in('date', with: '2023-01-23')
 end

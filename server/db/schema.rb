@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_22_114344) do
+ActiveRecord::Schema.define(version: 2023_05_24_072803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2023_05_22_114344) do
     t.integer "install_state", limit: 2, default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "date", null: false
     t.index ["address_id"], name: "index_installations_on_address_id"
     t.index ["customer_id"], name: "index_installations_on_customer_id"
     t.index ["install_state"], name: "index_installations_on_install_state"

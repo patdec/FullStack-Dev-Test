@@ -12,6 +12,7 @@ RSpec.describe 'Installations', type: :request do
           installer_id: installer.id,
           panels_type: 'hybrid',
           panels_number: 8,
+          date: '2023-02-27',
           panels_ids: (1..8).map { |n| "12300#{n}" },
           customer_attributes: { name: 'Pyrus', email: 'pyrus@orange.fr', phone: '0678342398' },
           address_attributes: { street: '1, place de la Comédie', zipcode: '75001', city: 'Paris', country_id: country.id }
@@ -69,6 +70,20 @@ RSpec.describe 'Installations', type: :request do
       it 'returns a related error message' do
         post installations_path, params: params
         expect(JSON.parse(response.body)['error']['panels_number']).to eq(["can't be blank", 'is not a number'])
+      end
+    end
+
+    context 'when date is not provided' do
+      before { params[:installation][:date] = nil }
+
+      it 'returns a 500' do
+        post installations_path, params: params
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'returns a related error message' do
+        post installations_path, params: params
+        expect(JSON.parse(response.body)['error']['date']).to eq(["can't be blank"])
       end
     end
 

@@ -13,6 +13,7 @@ class Installation < ApplicationRecord
   validates :panels_number, presence: true, numericality: { greater_than: 0, less_than: 50 }
   validates :panels_type, presence: true
   validates :panels_ids, presence: true
+  validates :date, presence: true
   validate :check_panels_ids_number, :check_panels_ids_format
 
   accepts_nested_attributes_for :customer, :address

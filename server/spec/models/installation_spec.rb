@@ -135,4 +135,14 @@ RSpec.describe Installation, type: :model do
     end
   end
 
+  describe 'date validations' do
+    context 'when date is nil' do
+      before { installation.date = nil }
+
+      it 'installation is not valid' do
+        expect(installation).not_to be_valid
+      end
+    end
+  end
+
 end
