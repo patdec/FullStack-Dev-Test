@@ -31,7 +31,7 @@ Capybara.register_driver :headless_chrome do |app|
   )
 end
 
-def capybara_wait_for_webpack_server
+def capybara_wait_for_ng_server
   10.times.each do |_|
     begin
       Net::HTTP.get(URI(WEB_TEST_URL))
@@ -43,7 +43,7 @@ def capybara_wait_for_webpack_server
 end
 
 
-Capybara.register_server :puntastic do |app, port, host|
+Capybara.register_server :ng_server do |app, port, host|
   # run webpack server using childprocess gem
   process = ChildProcess.build('npx', 'ng', 'serve')
   # process.io.inherit! # uncomment for debugging
@@ -57,7 +57,7 @@ Capybara.register_server :puntastic do |app, port, host|
   rescue
     process.start
     at_exit { process.stop unless process.exited? }
-    capybara_wait_for_webpack_server
+    capybara_wait_for_ng_server
   end
 
   # run the Rails API server
@@ -70,7 +70,7 @@ Capybara.default_driver = :headless_chrome
 Capybara.javascript_driver = :headless_chrome
 
   # use the custom server
-Capybara.server = :puntastic
+Capybara.server = :ng_server
 Capybara.run_server = true
 Capybara.app_host = WEB_TEST_URL
 Capybara.server_port = 3000

@@ -1,248 +1,250 @@
-<div class="container-fluid p-5">
-  <div class="col-lg-2"></div>
-  <div class="col-lg-4">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" #installationForm="ngForm">
-    <div class="form-group">
-      <label for="installer">Installeur</label>
-      <select
-        class="form-control"
-        [class.is-invalid]="installer?.invalid && installer?.dirty"
-        id="installer"
-        formControlName="installer"
-        required>
-        <option></option>
-        <option *ngFor="let installer of installers$ | async" [value]="installer.id">{{ installer.name }} - {{ installer.siren }}</option>
-      </select>
-      <div *ngIf="installer?.invalid && installer?.dirty" class="invalid-feedback">
-        <div *ngIf="installer?.errors?.['required']">
-          L'installeur est obligatoire
+<div class="p-lg-3 p-sm-0 p-md-3">
+  <div class="col-md-2"></div>
+  <div class="col-lg-4 col-md-8">
+
+    <h4>Procès verbal de mise en service (PVMES)</h4>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" #installationForm="ngForm">
+      <div class="form-group">
+        <label for="installer">Installeur</label>
+        <select
+          class="form-control"
+          [class.is-invalid]="installer?.invalid && installer?.dirty"
+          id="installer"
+          formControlName="installer"
+          required>
+          <option></option>
+          <option *ngFor="let installer of installers$ | async" [value]="installer.id">{{ installer.name }} - {{ installer.siren }}</option>
+        </select>
+        <div *ngIf="installer?.invalid && installer?.dirty" class="invalid-feedback">
+          <div *ngIf="installer?.errors?.['required']">
+            L'installeur est obligatoire
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="card">
-      <div class="card-body">
-        <div class="form-group">
-          <h4>Client</h4>
-        </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <h5>Client</h5>
+          </div>
 
-        <div class="form-group">
-            <label for="customer-name">Nom</label>
-            <input type="text"
+          <div class="form-group">
+              <label for="customer-name">Nom</label>
+              <input type="text"
+                     class="form-control"
+                     [class.is-invalid]="customerName?.invalid && customerName?.dirty"
+                     id="customer-name"
+                     formControlName="customerName"
+                     required />
+              <div *ngIf="customerName?.invalid && customerName?.dirty" class="invalid-feedback">
+                <div *ngIf="customerName?.errors?.['required']">
+                  Le nom du client est obligatoire
+                </div>
+                <div *ngIf="customerName?.errors?.['maxlength']">
+                  Le nom du client est limité à 255 caractères
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="customer-email">Email</label>
+            <input type="email"
                    class="form-control"
-                   [class.is-invalid]="customerName?.invalid && customerName?.dirty"
-                   id="customer-name"
-                   formControlName="customerName"
+                   [class.is-invalid]="customerEmail?.invalid && customerEmail?.dirty"
+                   id="customer-email"
+                   formControlName="customerEmail"
                    required />
-            <div *ngIf="customerName?.invalid && customerName?.dirty" class="invalid-feedback">
-              <div *ngIf="customerName?.errors?.['required']">
-                Le nom du client est obligatoire
+            <div *ngIf="customerEmail?.invalid && customerEmail?.dirty" class="invalid-feedback">
+              <div *ngIf="customerEmail?.errors?.['required']">
+                L'email du client est obligatoire
               </div>
-              <div *ngIf="customerName?.errors?.['maxlength']">
-                Le nom du client est limité à 255 caractères
+              <div *ngIf="customerEmail?.errors?.['maxlength']">
+                L'email du client est limité à 255 caractères
+              </div>
+              <div *ngIf="customerEmail?.errors?.['pattern']">
+                Le format de l'email est invalide
               </div>
             </div>
-        </div>
-
-        <div class="form-group">
-          <label for="customer-email">Email</label>
-          <input type="email"
-                 class="form-control"
-                 [class.is-invalid]="customerEmail?.invalid && customerEmail?.dirty"
-                 id="customer-email"
-                 formControlName="customerEmail"
-                 required />
-          <div *ngIf="customerEmail?.invalid && customerEmail?.dirty" class="invalid-feedback">
-            <div *ngIf="customerEmail?.errors?.['required']">
-              L'email du client est obligatoire
-            </div>
-            <div *ngIf="customerEmail?.errors?.['maxlength']">
-              L'email du client est limité à 255 caractères
-            </div>
-            <div *ngIf="customerEmail?.errors?.['pattern']">
-              Le format de l'email est invalide
-            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="customer-phone">Téléphone</label>
-          <input
-            type="tel"
-            class="form-control"
-            [class.is-invalid]="customerPhone?.invalid && customerPhone?.dirty"
-            id="customer-phone"
-            formControlName="customerPhone"
-            required />
-          <div *ngIf="customerPhone?.invalid && customerPhone?.dirty" class="invalid-feedback">
-            <div *ngIf="customerPhone?.errors?.['required']">
-              Le téléphone du client est obligatoire
-            </div>
-            <div *ngIf="customerPhone?.errors?.['pattern']">
-              Le format du numéro est invalide
+          <div class="form-group">
+            <label for="customer-phone">Téléphone</label>
+            <input
+              type="tel"
+              class="form-control"
+              [class.is-invalid]="customerPhone?.invalid && customerPhone?.dirty"
+              id="customer-phone"
+              formControlName="customerPhone"
+              required />
+            <div *ngIf="customerPhone?.invalid && customerPhone?.dirty" class="invalid-feedback">
+              <div *ngIf="customerPhone?.errors?.['required']">
+                Le téléphone du client est obligatoire
+              </div>
+              <div *ngIf="customerPhone?.errors?.['pattern']">
+                Le format du numéro est invalide
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="card my-3">
-      <div class="card-body">
-        <div class="form-group">
-          <h4>Adresse</h4>
-        </div>
+      <div class="card my-3">
+        <div class="card-body">
+          <div class="form-group">
+            <h5>Adresse</h5>
+          </div>
 
-        <div class="form-group">
-          <label for="address-street">Rue</label>
-          <input
-            type="text"
-            class="form-control"
-            [class.is-invalid]="addressStreet?.invalid && addressStreet?.dirty"
-            id="address-street"
-            formControlName="addressStreet"
-            required />
-          <div *ngIf="addressStreet?.invalid && addressStreet?.dirty" class="invalid-feedback">
-            <div *ngIf="addressStreet?.errors?.['required']">
-              Le nom de la rue est obligatoire
-            </div>
-            <div *ngIf="addressStreet?.errors?.['maxlength']">
-              Le nom de la rue est limité à 255 caractères
+          <div class="form-group">
+            <label for="address-street">Rue</label>
+            <input
+              type="text"
+              class="form-control"
+              [class.is-invalid]="addressStreet?.invalid && addressStreet?.dirty"
+              id="address-street"
+              formControlName="addressStreet"
+              required />
+            <div *ngIf="addressStreet?.invalid && addressStreet?.dirty" class="invalid-feedback">
+              <div *ngIf="addressStreet?.errors?.['required']">
+                Le nom de la rue est obligatoire
+              </div>
+              <div *ngIf="addressStreet?.errors?.['maxlength']">
+                Le nom de la rue est limité à 255 caractères
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="address-zipcode">Code postal</label>
-          <input
-            type="text"
-            class="form-control"
-            [class.is-invalid]="addressZipcode?.invalid && addressZipcode?.dirty"
-            id="address-zipcode"
-            formControlName="addressZipcode"
-            required />
-          <div *ngIf="addressZipcode?.invalid && addressZipcode?.dirty" class="invalid-feedback">
-            <div *ngIf="addressZipcode?.errors?.['required']">
-              Le code postal est obligatoire
-            </div>
-            <div *ngIf="addressZipcode?.errors?.['maxlength']">
-              Le code postal est limité à 20 caractères
+          <div class="form-group">
+            <label for="address-zipcode">Code postal</label>
+            <input
+              type="text"
+              class="form-control"
+              [class.is-invalid]="addressZipcode?.invalid && addressZipcode?.dirty"
+              id="address-zipcode"
+              formControlName="addressZipcode"
+              required />
+            <div *ngIf="addressZipcode?.invalid && addressZipcode?.dirty" class="invalid-feedback">
+              <div *ngIf="addressZipcode?.errors?.['required']">
+                Le code postal est obligatoire
+              </div>
+              <div *ngIf="addressZipcode?.errors?.['maxlength']">
+                Le code postal est limité à 20 caractères
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="address-city">Ville</label>
-          <input
-            type="text"
-            class="form-control"
-            [class.is-invalid]="addressCity?.invalid && addressCity?.dirty"
-            id="address-city"
-            formControlName="addressCity"
-            required />
-          <div *ngIf="addressCity?.invalid && addressCity?.dirty" class="invalid-feedback">
-            <div *ngIf="addressCity?.errors?.['required']">
-              Le nom de la ville est obligatoire
-            </div>
-            <div *ngIf="addressCity?.errors?.['maxlength']">
-              Le nom de la ville est limité à 100 caractères
+          <div class="form-group">
+            <label for="address-city">Ville</label>
+            <input
+              type="text"
+              class="form-control"
+              [class.is-invalid]="addressCity?.invalid && addressCity?.dirty"
+              id="address-city"
+              formControlName="addressCity"
+              required />
+            <div *ngIf="addressCity?.invalid && addressCity?.dirty" class="invalid-feedback">
+              <div *ngIf="addressCity?.errors?.['required']">
+                Le nom de la ville est obligatoire
+              </div>
+              <div *ngIf="addressCity?.errors?.['maxlength']">
+                Le nom de la ville est limité à 100 caractères
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="address-country">Pays</label>
-          <select
-            class="form-control"
-            [class.is-invalid]="addressCountry?.invalid && addressCountry?.dirty"
-            id="address-country"
-            formControlName="addressCountry"
-            required>
-            <option></option>
-            <option *ngFor="let country of countries$ | async" [value]="country.id">{{ country.name }}</option>
-          </select>
-          <div *ngIf="addressCountry?.invalid && addressCountry?.dirty" class="invalid-feedback">
-            <div *ngIf="addressCountry?.errors?.['required']">
-              Le pays est obligatoire
+          <div class="form-group">
+            <label for="address-country">Pays</label>
+            <select
+              class="form-control"
+              [class.is-invalid]="addressCountry?.invalid && addressCountry?.dirty"
+              id="address-country"
+              formControlName="addressCountry"
+              required>
+              <option></option>
+              <option *ngFor="let country of countries$ | async" [value]="country.id">{{ country.name }}</option>
+            </select>
+            <div *ngIf="addressCountry?.invalid && addressCountry?.dirty" class="invalid-feedback">
+              <div *ngIf="addressCountry?.errors?.['required']">
+                Le pays est obligatoire
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="panels-type">Type de panneau</label>
-      <select
-        class="form-control"
-        [class.is-invalid]="panelsType?.invalid && panelsType?.dirty"
-        id="panels-type"
-        formControlName="panelsType"
-        required>
-        <option></option>
-        <option *ngFor="let panelsType of possiblePanelsType">{{ panelsType }}</option>
-      </select>
-      <div *ngIf="panelsType?.invalid && panelsType?.dirty" class="invalid-feedback">
-        <div *ngIf="panelsType?.errors?.['required']">
-          Le type de panneau est obligatoire
+      <div class="form-group">
+        <label for="panels-type">Type de panneau</label>
+        <select
+          class="form-control"
+          [class.is-invalid]="panelsType?.invalid && panelsType?.dirty"
+          id="panels-type"
+          formControlName="panelsType"
+          required>
+          <option></option>
+          <option *ngFor="let panelsType of possiblePanelsType">{{ panelsType }}</option>
+        </select>
+        <div *ngIf="panelsType?.invalid && panelsType?.dirty" class="invalid-feedback">
+          <div *ngIf="panelsType?.errors?.['required']">
+            Le type de panneau est obligatoire
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="panels-number">Nombre de panneaux</label>
-      <input
-        type="number"
-        class="form-control"
-        [class.is-invalid]="panelsNumber?.invalid && panelsNumber?.dirty"
-        id="panels-number"
-        formControlName="panelsNumber"
-        required />
-      <div *ngIf="panelsNumber?.invalid && panelsNumber?.dirty" class="invalid-feedback">
-        <div *ngIf="panelsNumber?.errors?.['required']">
-          Le nombre de panneaux est obligatoire
-        </div>
-        <div *ngIf="panelsNumber?.errors?.['min']">
-          Le nombre ne peut être inférieur à 1
-        </div>
-        <div *ngIf="panelsNumber?.errors?.['max']">
-          Le nombre ne peut être supérieur à 50
+      <div class="form-group">
+        <label for="panels-number">Nombre de panneaux</label>
+        <input
+          type="number"
+          class="form-control"
+          [class.is-invalid]="panelsNumber?.invalid && panelsNumber?.dirty"
+          id="panels-number"
+          formControlName="panelsNumber"
+          required />
+        <div *ngIf="panelsNumber?.invalid && panelsNumber?.dirty" class="invalid-feedback">
+          <div *ngIf="panelsNumber?.errors?.['required']">
+            Le nombre de panneaux est obligatoire
+          </div>
+          <div *ngIf="panelsNumber?.errors?.['min']">
+            Le nombre ne peut être inférieur à 1
+          </div>
+          <div *ngIf="panelsNumber?.errors?.['max']">
+            Le nombre ne peut être supérieur à 50
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="panels-ids">IDs des panneaux (séparer chaque ID par une ',')</label>
-      <textarea
-        class="form-control"
-        [class.is-invalid]="(panelsIds?.invalid && panelsIds?.dirty) || form.errors?.['differentNumber']"
-        id="panels-ids"
-        formControlName="panelsIds"
-        required></textarea>
-      <div *ngIf="(panelsIds?.invalid && panelsIds?.dirty) || form.errors?.['differentNumber']" class="invalid-feedback">
-        <div *ngIf="panelsIds?.errors?.['required']">
-          Vous devez renseigner les ID des panneaux installés
-        </div>
-        <div *ngIf="panelsIds?.errors?.['invalidIdsFormat']">
-          Le format d'un ID est invalide: {{ panelsIds?.errors?.['invalidIdsFormat']['value'] }}
-        </div>
-        <div *ngIf="form.errors?.['differentNumber']">
-          La valeur "Nombre de panneaux" ne correspond pas au nombre de références saisies
+      <div class="form-group">
+        <label for="panels-ids">IDs des panneaux (séparer chaque ID par une ',')</label>
+        <textarea
+          class="form-control"
+          [class.is-invalid]="(panelsIds?.invalid && panelsIds?.dirty) || form.errors?.['differentNumber']"
+          id="panels-ids"
+          formControlName="panelsIds"
+          required></textarea>
+        <div *ngIf="(panelsIds?.invalid && panelsIds?.dirty) || form.errors?.['differentNumber']" class="invalid-feedback">
+          <div *ngIf="panelsIds?.errors?.['required']">
+            Vous devez renseigner les ID des panneaux installés
+          </div>
+          <div *ngIf="panelsIds?.errors?.['invalidIdsFormat']">
+            Le format d'un ID est invalide: {{ panelsIds?.errors?.['invalidIdsFormat']['value'] }}
+          </div>
+          <div *ngIf="form.errors?.['differentNumber']">
+            La valeur "Nombre de panneaux" ne correspond pas au nombre de références saisies
+          </div>
         </div>
       </div>
-    </div>
 
-    <div *ngIf="message.length"
-         id="submit-message"
-         class="alert"
-         [ngClass]="success ? 'alert-success' : 'alert-danger'"
-    >{{ message }} </div>
+      <div *ngIf="message.length"
+           id="submit-message"
+           class="alert"
+           [ngClass]="success ? 'alert-success' : 'alert-danger'"
+      >{{ message }} </div>
 
-    <button
-      type="submit"
-      class="btn btn-primary btn-lg"
-      [disabled]="!installationForm.form.valid"
-    >Valider</button>
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg"
+        [disabled]="!installationForm.form.valid"
+      >Valider</button>
 
-  </form>
+    </form>
   </div>
   <div class="col-lg-2"></div>
 </div>
